@@ -1,66 +1,58 @@
-# frontapp
+# node-frontapp
 
-> FrontApp Node.js API Wrapper using promises (or callbacks if needed) with Typescrypt, Webpack and Jest.
+> FrontApp API Wrapper on node.js using promises (or callbacks) with Typescrypt and Jest.
 
 This project is based on frontapp-node by @oitozero
 
 ## Installation
 
 ```bash
-npm install frontapp-node-ts
-```
-
-## Testing using Jest
-
-```bash
-npm run test
+npm install node-frontapp
 ```
 
 ## Running the code locally
 
-Compile using typescript & webpack:
+Compile using Typescript:
 
 ```bash
 npm run build
 ```
 
-Require FrontApp:
-
-```node
-const FrontAppClient = require('./dist');
-```
-
 ## Usage
 
-Require FrontApp:
+You can directly import the library using the default export:
 
 ```node
-const FrontAppClient = require('frontapp-node-ts');
+import FrontApp, { FrontAppError } from 'node-frontapp';
 ```
 
-Or if you're using Typescript:
+Or if you're using require:
 
 ```node
-import FrontAppClient from 'frontapp-node-ts';
+const FrontApp = require('node-frontapp').default;
 ```
 
-Create a client:
+### Create a client instance:
 
-#### Using Front's API JWT Access Tokens
+> Note that you will need Front's API JWT Access Token.
+
+Using the class constructor:
 
 ```node
-const frontApp = new FrontAppClient('front_api_token');
+const frontApp = new FrontApp('front_api_token');
 ```
 
-## Promises & async/await
+### Promises & async/await
 
-This client library by default supports Promises or Async/Await:
+This client library supports node (+8.x) native promises by default:
 
 ```node
 frontApp.clients.get({}).then(function (r) {
   // ...
 });
 ```
+
+Or the async/await version:
 
 ```node
 try {
@@ -70,7 +62,7 @@ try {
 }
 ```
 
-## Callbacks
+### ...or even callbacks
 
 This client library also supports callbacks:
 
@@ -85,4 +77,10 @@ frontApp.clients.get({}, (err, res) => {
   // err is an error object, or null
   // res is a successful response object, or null
 });
+```
+
+## Testing using Jest
+
+```bash
+npm run test
 ```
