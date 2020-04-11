@@ -23,13 +23,13 @@ npm run build
 You can directly import the library using the default export:
 
 ```node
-import FrontApp, { FrontAppError } from 'node-frontapp';
+import { FrontAppClient, FrontAppError } from 'node-frontapp';
 ```
 
 Or if you're using require:
 
 ```node
-const FrontApp = require('node-frontapp').default;
+const FrontAppClient = require('node-frontapp');
 ```
 
 ### Create a client instance:
@@ -39,7 +39,7 @@ const FrontApp = require('node-frontapp').default;
 Using the class constructor:
 
 ```node
-const frontApp = new FrontApp('front_api_token');
+const frontApp = new FrontAppClient('front_api_token');
 ```
 
 ### Promises & async/await
@@ -67,7 +67,7 @@ try {
 This client library also supports callbacks:
 
 ```node
-const frontApp = new FrontApp('front_api_token').useCallbacks();
+const frontApp = new FrontAppClient('front_api_token').useCallbacks();
 ```
 
 And then:
