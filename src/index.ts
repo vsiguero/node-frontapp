@@ -1,3 +1,13 @@
-import FrontAppClient from './client';
+export {
+  IChannel,
+  IChannelCreate,
+  IChannelUpdate,
+  IContact,
+  IContactCreate,
+  IContactUpdate,
+  IInbox,
+  IMessage,
+} from './interfaces';
 
-export default FrontAppClient;
+export { FrontAppError } from './error';
+export { FrontAppClient } from './client';

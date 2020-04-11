@@ -1,11 +1,12 @@
 // import *  from 'jest';
-import FrontApp, { FrontAppError } from './client';
-import * as nock from 'nock';
+import { FrontAppClient } from '../../src/client';
+import { FrontAppError } from '../../src/error';
+import nock from 'nock';
 
 describe('clients', () => {
   it('should resolve promises', async () => {
     nock('https://api2.frontapp.com').get('/contacts').reply(200, {});
-    const client = new FrontApp('token');
+    const client = new FrontAppClient('token');
     await expect(client.contacts.list({})).resolves.toEqual({});
   });
 
@@ -20,7 +21,7 @@ describe('clients', () => {
           status: 200,
         },
       });
-    const client = new FrontApp('token');
+    const client = new FrontAppClient('token');
     return client.contacts.list({}).catch((err: any) => {
       expect(err).toBeInstanceOf(FrontAppError);
       expect(err.message).toContain('Front Error');
@@ -38,7 +39,7 @@ describe('clients', () => {
           status: 400,
         },
       });
-    const client = new FrontApp('token');
+    const client = new FrontAppClient('token');
     await expect(client.contacts.list({})).rejects.toThrow();
   });
 
@@ -48,7 +49,7 @@ describe('clients', () => {
       expect(data).toEqual(null);
       done();
     };
-    const client = new FrontApp('token').useCallbacks();
+    const client = new FrontAppClient('token').useCallbacks();
     return client.callback(callback, {
       body: {
         _error: {
@@ -63,20 +64,21 @@ describe('clients', () => {
 
   it('should not crash if the callback is missing', () => {
     nock('https://api2.frontapp.com').get('/contacts').reply(200, {});
-    const client = new FrontApp('token').useCallbacks();
+    const client = new FrontAppClient('token').useCallbacks();
     expect(() => {
       client.contacts.list({});
     }).not.toThrow();
   });
 
   it('should construct with one fields', () => {
-    const client = new FrontApp('token');
+    const client = new FrontAppClient('token');
     expect(client.token).toBe('token');
   });
 
   it('should throw if no credentials found', () => {
     expect(() => {
-      new FrontApp();
+      // tslint:disable-next-line: no-unused-expression
+      new FrontAppClient('');
     }).toThrowError('Could not construct a client with those parameters');
   });
 });

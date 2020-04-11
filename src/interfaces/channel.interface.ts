@@ -8,10 +8,6 @@ interface ILinkChannel {
   related: IRelatedChannel;
 }
 
-interface ISettings {
-  item: string;
-}
-
 export interface IChannel {
   name?: string;
   _link?: ILinkChannel;

@@ -55,7 +55,6 @@ export interface IContact {
 export interface IContactCreate {
   name?: string;
 }
-
 export interface IContactUpdate {
   name?: string;
 }

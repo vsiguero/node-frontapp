@@ -1,6 +1,6 @@
 {
   "name": "node-frontapp",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Node FrontApp API Wrapper in Typescript",
   "homepage": "https://github.com/vsiguero/node-frontapp",
   "bugs:": "https://github.com/vsiguero/node-frontapp/issues",
@@ -12,11 +12,10 @@
     "name": "Víctor Siguero",
     "email": "vsiguero@gmail.com"
   },
-  "files": [
-    "dist"
-  ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./lib/commonjs/index.js",
+  "module": "./lib/es6/index.js",
+  "jsnext:main": "./lib/es6/index.js",
+  "types": "./types/index.d.ts",
   "keywords": [
     "frontapp",
     "api",
@@ -27,49 +26,47 @@
     "superagent": "^5.2.2"
   },
   "devDependencies": {
-    "@types/jest": "^25.2.1",
-    "@types/prompt-sync": "^4.1.0",
+    "@babel/preset-env": "7.9.5",
+    "@types/jest": "25.2.1",
+    "@types/nock": "11.1.0",
     "@types/superagent": "^4.1.7",
-    "@types/supertest": "^2.0.8",
-    "@typescript-eslint/eslint-plugin": "^2.27.0",
-    "@typescript-eslint/parser": "^2.27.0",
-    "eslint": "^6.7.2",
-    "eslint-config-prettier": "^6.10.1",
-    "eslint-plugin-import": "^2.20.2",
+    "@types/supertest": "2.0.8",
+    "babel": "6.23.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "jest": "^25.2.7",
-    "json-loader": "^0.5.7",
     "nock": "^12.0.3",
     "prettier": "^2.0.4",
     "rimraf": "^3.0.2",
     "supertest": "^4.0.2",
     "ts-jest": "^25.3.1",
-    "ts-loader": "^6.2.2",
-    "ts-node": "^8.8.2",
-    "tsconfig-paths": "^3.9.0",
+    "ts-loader": "6.2.2",
+    "tslint": "6.1.1",
+    "tslint-config-prettier": "1.18.0",
+    "tslint-immutable": "6.0.1",
     "typescript": "^3.8.3"
   },
   "scripts": {
-    "prebuild": "rimraf dist",
+    "lint": "tslint --project .",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "build": "tsc --project tsconfig.build.json",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "test": "jest",
+    "build": "rimraf lib && npm run build:commonjs && npm run build:es6 && npm run build:amd && npm run build:umd && npm run build:system",
+    "build:commonjs": "tsc --outDir lib/commonjs --module CommonJS --target ES5",
+    "build:es6": "tsc --outDir lib/es6 --module ES6",
+    "build:amd": "tsc --outDir lib/amd --module AMD",
+    "build:umd": "tsc --outDir lib/umd --module UMD",
+    "build:system": "tsc --outDir lib/system --module System",
+    "test": "./node_modules/.bin/jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json --detectOpenHandles"
-  },
-  "engines": {
-    "node": ">=8.0.0 <13.0.0"
+    "test:e2e": "jest --config ./test/e2e/jest-e2e.json --detectOpenHandles"
   },
   "license": "Apache-2.0",
   "jest": {
     "moduleFileExtensions": [
       "js",
-      "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "./test/unit",
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"

@@ -3,41 +3,14 @@ import { Analytics } from './analytics';
 import { Contacts } from './contacts';
 import { Channels } from './channels';
 import { IMessage, IFile } from './interfaces/message.interface';
+import { FrontAppError, FrontErrorInterface } from './error';
 
 export interface FrontPagination {
   next: string;
 }
 
-export interface FrontErrorInterface {
-  message: string;
-  title: string;
-  details: string[];
-  status: number;
-}
-
-export class FrontAppError extends Error {
-  constructor(
-    message: string,
-    title: string,
-    details: string[],
-    status: number,
-  ) {
-    super(message);
-    this.name = 'FrontAppError';
-    this.message = message;
-    this.status = status;
-    this.title = title;
-    this.details = details;
-  }
-
-  public message: string;
-  public status: number;
-  public details: string[];
-  public title: string;
-}
-
-export default class FrontAppClient {
-  constructor(token?: string, apiUrl?: string) {
+export class FrontAppClient {
+  constructor(token: string, apiUrl?: string) {
     // constructor(...args) {
     // if (args.length === 2) {
     //   this.usernamePart = args[0];
@@ -77,7 +50,7 @@ export default class FrontAppClient {
     this.promises = true;
   }
 
-  useCallbacks() {
+  useCallbacks(): any {
     this.promises = false;
     return this;
   }
@@ -92,7 +65,7 @@ export default class FrontAppClient {
 
   private _request: request.SuperAgentStatic;
 
-  async promiseProxy(f: any, req: request.SuperAgentRequest) {
+  async promiseProxy(f: any, req: request.SuperAgentRequest): Promise<any> {
     if (this.promises || !f) {
       try {
         const res = await req;
@@ -113,8 +86,8 @@ export default class FrontAppClient {
         throw err;
       }
     } else {
-      req.end((err, res) => {
-        console.log('callback res', res.body);
+      req.end((_err, res) => {
+        // console.log('callback res', res.body);
         if (res.error && res.body && res.body._error) {
           const frontError: FrontErrorInterface = res.body._error;
           f(
@@ -133,8 +106,8 @@ export default class FrontAppClient {
     }
   }
 
-  async put(endpoint: string, data: object, f: any) {
-    return await this.promiseProxy(
+  async put(endpoint: string, data: object, f: any): Promise<any> {
+    return this.promiseProxy(
       f,
       this._request
         .put(`${this.API_URL}${endpoint}`)
@@ -143,8 +116,8 @@ export default class FrontAppClient {
     );
   }
 
-  async post(endpoint: string, data: object, f: any) {
-    return await this.promiseProxy(
+  async post(endpoint: string, data: object, f: any): Promise<any> {
+    return this.promiseProxy(
       f,
       this._request
         .post(`${this.API_URL}${endpoint}`)
@@ -153,8 +126,13 @@ export default class FrontAppClient {
     );
   }
 
-  async postMessage(endpoint: string, data: IMessage, file: IFile, f: any) {
-    return await this.promiseProxy(
+  async postMessage(
+    endpoint: string,
+    data: IMessage,
+    file: IFile,
+    f: any,
+  ): Promise<any> {
+    return this.promiseProxy(
       f,
       this._request
         .post(`${this.API_URL}${endpoint}`)
@@ -171,8 +149,8 @@ export default class FrontAppClient {
     );
   }
 
-  async get(endpoint: string, data: object, f: any) {
-    return await this.promiseProxy(
+  async get(endpoint: string, data: object, f: any): Promise<any> {
+    return this.promiseProxy(
       f,
       this._request
         .get(`${this.API_URL}${endpoint}`)
@@ -181,16 +159,16 @@ export default class FrontAppClient {
     );
   }
 
-  async nextPage(paginationObject: FrontPagination, f: any) {
-    return await this.promiseProxy(
+  async nextPage(paginationObject: FrontPagination, f: any): Promise<any> {
+    return this.promiseProxy(
       f,
       this._request.get(paginationObject.next),
       //.auth(this.usernamePart, this.passwordPart)
     );
   }
 
-  async delete(endpoint: string, data: object, f: any) {
-    return await this.promiseProxy(
+  async delete(endpoint: string, data: object, f: any): Promise<any> {
+    return this.promiseProxy(
       f,
       this._request
         .delete(`${this.API_URL}${endpoint}`)
@@ -199,7 +177,7 @@ export default class FrontAppClient {
     );
   }
 
-  callback(f: any, res: any) {
+  callback(f: any, res: any): any {
     if (!f) {
       return;
     }
