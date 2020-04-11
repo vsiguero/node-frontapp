@@ -13,38 +13,41 @@ export class Channels {
   client: any;
 
   async get(id: string, f?: any): Promise<IChannel> {
-    return await this.client.get(`/channels/${id}`, {}, f);
+    return this.client.get(`/channels/${id}`, {}, f);
   }
 
-  async list(f?: any): Promise<IChannel[]> {
-    return await this.client.get(`/channels`, {}, f);
+  async list(f?: any): Promise<ReadonlyArray<IChannel>> {
+    return this.client.get(`/channels`, {}, f);
   }
 
   async create(
     inboxId: string,
     params: IChannelCreate,
     f?: any,
-  ): Promise<IChannel[]> {
-    return await this.client.get(`/${inboxId}/channels`, params, f);
+  ): Promise<ReadonlyArray<IChannel>> {
+    return this.client.get(`/${inboxId}/channels`, params, f);
   }
 
   async update(
     channelId: string,
     params: IChannelUpdate,
     f?: any,
-  ): Promise<IChannel[]> {
-    return await this.client.get(`/channels/${channelId}`, params, f);
+  ): Promise<ReadonlyArray<IChannel>> {
+    return this.client.get(`/channels/${channelId}`, params, f);
   }
 
-  async listInboxes(f?: any): Promise<IInbox[]> {
-    return await this.client.get(`/inboxes`, {}, f);
+  async listInboxes(f?: any): Promise<ReadonlyArray<IInbox>> {
+    return this.client.get(`/inboxes`, {}, f);
   }
 
-  async getInbox(inboxId: string, f?: any): Promise<IInbox[]> {
-    return await this.client.get(`/inboxes/${inboxId}`, {}, f);
+  async getInbox(inboxId: string, f?: any): Promise<ReadonlyArray<IInbox>> {
+    return this.client.get(`/inboxes/${inboxId}`, {}, f);
   }
 
-  async listInboxChannels(inboxId: string, f?: any): Promise<IChannel[]> {
-    return await this.client.get(`/inboxes/${inboxId}/channels`, {}, f);
+  async listInboxChannels(
+    inboxId: string,
+    f?: any,
+  ): Promise<ReadonlyArray<IChannel>> {
+    return this.client.get(`/inboxes/${inboxId}/channels`, {}, f);
   }
 }

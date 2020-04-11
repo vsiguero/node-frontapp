@@ -4,11 +4,11 @@ export class Analytics {
   }
   client: any;
 
-  async get(params: object, f?: any) {
-    return await this.client.get('/analytics', params, f);
+  async get(params: object, f?: any): Promise<any> {
+    return this.client.get('/analytics', params, f);
   }
 
-  async list(params: object, f?: any) {
-    return await this.client.get('/analytics', params, f);
+  async list(params: object, f?: any): Promise<any> {
+    return this.client.get('/analytics', params, f);
   }
 }
