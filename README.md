@@ -47,7 +47,7 @@ const frontApp = new FrontAppClient('front_api_token');
 This client library supports node (+8.x) native promises by default:
 
 ```node
-FrontAppClient.clients.get({}).then(function (r) {
+frontApp.clients.get({}).then(function (r) {
   // ...
 });
 ```
@@ -56,7 +56,7 @@ Or the async/await version:
 
 ```node
 try {
-  await FrontAppClient.clients.get({});
+  await frontApp.clients.get({});
 } catch(err: FrontAppError) {
   console.log(err);
 }
@@ -73,7 +73,7 @@ const frontApp = new FrontAppClient('front_api_token').useCallbacks();
 And then:
 
 ```node
-FrontAppClient.clients.get({}, (err, res) => {
+frontApp.clients.get({}, (err, res) => {
   // err is an error object, or null
   // res is a successful response object, or null
 });
