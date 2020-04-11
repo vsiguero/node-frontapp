@@ -23,13 +23,13 @@ npm run build
 You can directly import the library using the default export:
 
 ```node
-import FrontApp, { FrontAppError } from 'node-frontapp';
+import { FrontAppClient, FrontAppError } from 'node-frontapp';
 ```
 
 Or if you're using require:
 
 ```node
-const FrontApp = require('node-frontapp').default;
+const FrontAppClient = require('node-frontapp');
 ```
 
 ### Create a client instance:
@@ -39,7 +39,7 @@ const FrontApp = require('node-frontapp').default;
 Using the class constructor:
 
 ```node
-const frontApp = new FrontApp('front_api_token');
+const frontApp = new FrontAppClient('front_api_token');
 ```
 
 ### Promises & async/await
@@ -47,7 +47,7 @@ const frontApp = new FrontApp('front_api_token');
 This client library supports node (+8.x) native promises by default:
 
 ```node
-frontApp.clients.get({}).then(function (r) {
+FrontAppClient.clients.get({}).then(function (r) {
   // ...
 });
 ```
@@ -56,7 +56,7 @@ Or the async/await version:
 
 ```node
 try {
-  await frontApp.clients.get({});
+  await FrontAppClient.clients.get({});
 } catch(err: FrontAppError) {
   console.log(err);
 }
@@ -67,13 +67,13 @@ try {
 This client library also supports callbacks:
 
 ```node
-const frontApp = new FrontApp('front_api_token').useCallbacks();
+const frontApp = new FrontAppClient('front_api_token').useCallbacks();
 ```
 
 And then:
 
 ```node
-frontApp.clients.get({}, (err, res) => {
+FrontAppClient.clients.get({}, (err, res) => {
   // err is an error object, or null
   // res is a successful response object, or null
 });
