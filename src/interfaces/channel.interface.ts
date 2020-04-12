@@ -1,16 +1,16 @@
-interface IRelatedChannel {
+interface RelatedChannelInterface {
   inbox: string;
   owner: string;
 }
 
-interface ILinkChannel {
+interface LinkChannelInterface {
   _self: string;
-  related: IRelatedChannel;
+  related: RelatedChannelInterface;
 }
 
-export interface IChannel {
+export interface ChannelInterface {
   name?: string;
-  _link?: ILinkChannel;
+  _link?: LinkChannelInterface;
   id?: string;
   address?: string;
   type?:
@@ -29,7 +29,7 @@ export interface IChannel {
   same_channel?: 'same_channel' | 'unsupported';
 }
 
-export interface IChannelCreate {
+export interface ChannelCreateInterface {
   name?: string;
   type:
     | 'smtp'
@@ -45,7 +45,7 @@ export interface IChannelCreate {
   settings?: object;
 }
 
-export interface IChannelUpdate {
+export interface ChannelUpdateInterface {
   name?: string;
   settings?: object;
   reply_mode?: 'same_channel' | 'unsupported';

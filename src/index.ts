@@ -1,12 +1,12 @@
 export {
-  IChannel,
-  IChannelCreate,
-  IChannelUpdate,
-  IContact,
-  IContactCreate,
-  IContactUpdate,
-  IInbox,
-  IMessage,
+  ChannelInterface,
+  ChannelCreateInterface,
+  ChannelUpdateInterface,
+  ContactInterface,
+  ContactCreateInterface,
+  ContactUpdateInterface,
+  InboxInterface,
+  MessageInterface,
 } from './interfaces';
 
 export { FrontAppError } from './error';

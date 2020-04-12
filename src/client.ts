@@ -2,8 +2,12 @@ import * as request from 'superagent';
 import { Analytics } from './analytics';
 import { Contacts } from './contacts';
 import { Channels } from './channels';
-import { IMessage, IFile } from './interfaces/message.interface';
+import {
+  MessageInterface,
+  FileInterface,
+} from './interfaces/message.interface';
 import { FrontAppError, FrontErrorInterface } from './error';
+import { Inboxes } from './inboxes';
 
 export interface FrontPagination {
   next: string;
@@ -11,22 +15,6 @@ export interface FrontPagination {
 
 export class FrontAppClient {
   constructor(token: string, apiUrl?: string) {
-    // constructor(...args) {
-    // if (args.length === 2) {
-    //   this.usernamePart = args[0];
-    //   this.passwordPart = args[1];
-    // } else if (args.length === 1) {
-    //   if (args[0].token) {
-    //     this.usernamePart = args[0].token;
-    //     this.passwordPart = '';
-    //   } else {
-    //     this.usernamePart = args[0].appId;
-    //     this.passwordPart = args[0].appApiKey;
-    //   }
-    // }
-    // if (!this.usernamePart || this.passwordPart === undefined) {
-    //   throw new Error('Could not construct a client with those parameters');
-    // }
     this.token = token;
 
     if (!this.token || this.token === undefined) {
@@ -45,6 +33,7 @@ export class FrontAppClient {
     this.analytics = new Analytics(this);
     this.channels = new Channels(this);
     this.contacts = new Contacts(this);
+    this.inboxes = new Inboxes(this);
 
     // Promises are default
     this.promises = true;
@@ -62,6 +51,7 @@ export class FrontAppClient {
   public analytics: Analytics;
   public channels: Channels;
   public contacts: Contacts;
+  public inboxes: Inboxes;
 
   private _request: request.SuperAgentStatic;
 
@@ -109,34 +99,27 @@ export class FrontAppClient {
   async put(endpoint: string, data: object, f: any): Promise<any> {
     return this.promiseProxy(
       f,
-      this._request
-        .put(`${this.API_URL}${endpoint}`)
-        //.auth(this.usernamePart, this.passwordPart)
-        .send(data),
+      this._request.put(`${this.API_URL}${endpoint}`).send(data),
     );
   }
 
   async post(endpoint: string, data: object, f: any): Promise<any> {
     return this.promiseProxy(
       f,
-      this._request
-        .post(`${this.API_URL}${endpoint}`)
-        //.auth(this.usernamePart, this.passwordPart)
-        .send(data),
+      this._request.post(`${this.API_URL}${endpoint}`).send(data),
     );
   }
 
-  async postMessage(
+  async postMessageWithAttachment(
     endpoint: string,
-    data: IMessage,
-    file: IFile,
+    data: MessageInterface,
+    file: FileInterface,
     f: any,
   ): Promise<any> {
     return this.promiseProxy(
       f,
       this._request
         .post(`${this.API_URL}${endpoint}`)
-        //.auth(this.usernamePart, this.passwordPart)
         .set('Content-Type', 'multipart/form-data')
         .field('sender[contact_id]', data.contact_id.toString())
         .field('sender[handle]', data.handle.toString())
@@ -152,10 +135,7 @@ export class FrontAppClient {
   async get(endpoint: string, data: object, f: any): Promise<any> {
     return this.promiseProxy(
       f,
-      this._request
-        .get(`${this.API_URL}${endpoint}`)
-        //.auth(this.usernamePart, this.passwordPart)
-        .query(data),
+      this._request.get(`${this.API_URL}${endpoint}`).query(data),
     );
   }
 
@@ -170,10 +150,7 @@ export class FrontAppClient {
   async delete(endpoint: string, data: object, f: any): Promise<any> {
     return this.promiseProxy(
       f,
-      this._request
-        .delete(`${this.API_URL}${endpoint}`)
-        //.auth(this.usernamePart, this.passwordPart)
-        .query(data),
+      this._request.delete(`${this.API_URL}${endpoint}`).query(data),
     );
   }
 

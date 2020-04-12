@@ -78,7 +78,7 @@
     ],
     "array-type": [true, "generic"],
     "readonly-keyword": false,
-    "readonly-array": true,
+    "readonly-array": false,
     "no-object-mutation": false,
     "no-delete": false,
     "no-dynamic-delete": false,

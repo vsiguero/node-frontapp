@@ -1,18 +1,23 @@
-interface IRelatedInbox {
+interface RelatedInboxInterface {
   teammates: string;
   conversations: string;
   channels: string;
   owner: string;
 }
 
-interface ILinkInbox {
+export interface LinkInboxInterface {
   _self: string;
-  related: IRelatedInbox;
+  related: RelatedInboxInterface;
 }
 
-export interface IInbox {
-  _link: ILinkInbox;
+export interface InboxInterface {
+  _link: LinkInboxInterface;
   id: string;
   name: string;
   is_private: boolean;
+}
+
+export interface InboxInterfaceCreate {
+  name: string;
+  teammate_ids?: ReadonlyArray<string>;
 }
