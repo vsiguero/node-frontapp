@@ -2,18 +2,25 @@ export {
   ChannelInterface,
   ChannelCreateInterface,
   ChannelUpdateInterface,
+  ChannelMessageParamsInterface,
+  CustomChannelMessageParamsInterface,
 }
 from './channel.interface';
 export {
   ContactInterface,
   ContactCreateInterface,
   ContactUpdateInterface,
+  ContactListParamsInterface,
+  ContactSearchParamsInterface,
   GroupInterface,
   HandleInterface,
+  HandleDeleteInterface,
 }
 from './contact.interface';
 export {
-  MessageInterface
+  MessageInterface,
+  FileInterface,
+  MessagesParamsInterface,
 }
 from './message.interface';
 export {
@@ -35,6 +42,10 @@ export {
 from './lib/es6/channel';
 export {
   Analytics
+}
+from './lib/es6/message';
+export {
+  Messages
 }
 from './lib/es6/analytics';
 export {

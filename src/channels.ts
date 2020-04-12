@@ -2,10 +2,12 @@ import {
   ChannelInterface,
   ChannelCreateInterface,
   ChannelUpdateInterface,
+  ChannelMessageParamsInterface,
 } from './interfaces/channel.interface';
 
-import { InboxInterface } from './interfaces/inbox.interface';
 import { FrontAppClient } from './client';
+import { MessageInterface } from './interfaces';
+import { FileInterface } from './interfaces/message.interface';
 
 export class Channels {
   constructor(client: FrontAppClient) {
@@ -31,11 +33,11 @@ export class Channels {
     return this.client.get(`/teammates/${id}/channels`, {}, f);
   }
 
-  async get(id: string, f?: any): Promise<ChannelInterface> {
+  async getChannel(id: string, f?: any): Promise<ChannelInterface> {
     return this.client.get(`/channels/${id}`, {}, f);
   }
 
-  async create(
+  async createChannel(
     inboxId: string,
     params: ChannelCreateInterface,
     f?: any,
@@ -43,7 +45,7 @@ export class Channels {
     return this.client.get(`/${inboxId}/channels`, params, f);
   }
 
-  async update(
+  async updateChannel(
     channelId: string,
     params: ChannelUpdateInterface,
     f?: any,
@@ -51,21 +53,25 @@ export class Channels {
     return this.client.get(`/channels/${channelId}`, params, f);
   }
 
-  async listInboxes(f?: any): Promise<ReadonlyArray<InboxInterface>> {
-    return this.client.get(`/inboxes`, {}, f);
+  async createChannelMessage(
+    channel_id: string,
+    params: ChannelMessageParamsInterface,
+    f?: any,
+  ): Promise<any> {
+    return this.client.get(`/channels/${channel_id}/messages`, params, f);
   }
 
-  async getInbox(
-    inboxId: string,
+  async createChannelCustomMessage(
+    channel_id: string,
+    params: MessageInterface,
+    file: FileInterface,
     f?: any,
-  ): Promise<ReadonlyArray<InboxInterface>> {
-    return this.client.get(`/inboxes/${inboxId}`, {}, f);
-  }
-
-  async listInboxChannels(
-    inboxId: string,
-    f?: any,
-  ): Promise<ReadonlyArray<ChannelInterface>> {
-    return this.client.get(`/inboxes/${inboxId}/channels`, {}, f);
+  ): Promise<any> {
+    return this.client.postMessageWithAttachment(
+      `/channels/${channel_id}/messages`,
+      params,
+      file,
+      f,
+    );
   }
 }

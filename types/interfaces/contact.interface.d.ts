@@ -11,6 +11,9 @@ export interface HandleInterface {
     handle: string;
     source: 'email' | 'phone' | 'twitter' | 'facebook' | 'intercom' | 'smooch' | 'custom';
 }
+export interface HandleDeleteInterface extends HandleInterface {
+    force?: boolean;
+}
 interface RelatedGroupInterface {
     contacts: string;
     owner: string;
@@ -55,5 +58,15 @@ export interface ContactUpdateInterface {
     is_spammer?: boolean;
     custom_fields?: object;
     is_private?: boolean;
+}
+export interface ContactSearchParamsInterface {
+    updated_before?: number;
+    updated_after?: number;
+}
+export interface ContactListParamsInterface {
+    limit?: number;
+    page_token?: string;
+    sort_by?: string;
+    sort_order?: 'asc' | 'desc';
 }
 export {};

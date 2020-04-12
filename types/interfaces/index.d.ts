@@ -1,4 +1,4 @@
-export { ChannelInterface, ChannelCreateInterface, ChannelUpdateInterface, } from './channel.interface';
-export { ContactInterface, ContactCreateInterface, ContactUpdateInterface, GroupInterface, HandleInterface, } from './contact.interface';
-export { MessageInterface } from './message.interface';
+export { ChannelInterface, ChannelCreateInterface, ChannelUpdateInterface, ChannelMessageParamsInterface, CustomChannelMessageParamsInterface, } from './channel.interface';
+export { ContactInterface, ContactCreateInterface, ContactUpdateInterface, ContactListParamsInterface, ContactSearchParamsInterface, GroupInterface, HandleInterface, HandleDeleteInterface, } from './contact.interface';
+export { MessageInterface, FileInterface, MessagesParamsInterface, } from './message.interface';
 export { InboxInterface, InboxInterfaceCreate } from './inbox.interface';

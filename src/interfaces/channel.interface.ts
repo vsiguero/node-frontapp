@@ -1,3 +1,5 @@
+import { MessagesParamsInterface } from './message.interface';
+
 interface RelatedChannelInterface {
   inbox: string;
   owner: string;
@@ -49,4 +51,28 @@ export interface ChannelUpdateInterface {
   name?: string;
   settings?: object;
   reply_mode?: 'same_channel' | 'unsupported';
+}
+
+export interface ChannelMessageParamsInterface extends MessagesParamsInterface {
+  to: string;
+}
+
+interface SenderInterface {
+  contact_id?: string;
+  name?: string;
+  handle: string;
+}
+
+interface MetadataInterface {
+  thread_ref?: string;
+  headers?: object;
+}
+
+export interface CustomChannelMessageParamsInterface {
+  sender: SenderInterface;
+  subject?: string;
+  body: string;
+  body_format?: 'html' | 'markdown';
+  metadata?: MetadataInterface;
+  attachments?: Array<string>;
 }
