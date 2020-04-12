@@ -7,10 +7,10 @@ export class Analytics {
   client: FrontAppClient;
 
   async get(params: object, f?: any): Promise<any> {
-    return this.client.get('/analytics', params, f);
+    return this.client.get(`/analytics`, params, f);
   }
 
   async list(params: object, f?: any): Promise<any> {
-    return this.client.get('/analytics', params, f);
+    return this.client.get(`/analytics`, params, f);
   }
 }

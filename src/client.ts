@@ -8,6 +8,8 @@ import {
 } from './interfaces/message.interface';
 import { FrontAppError, FrontErrorInterface } from './error';
 import { Inboxes } from './inboxes';
+import { Groups } from './groups';
+import { Teams } from './teams';
 
 export interface FrontPagination {
   next: string;
@@ -34,6 +36,8 @@ export class FrontAppClient {
     this.channels = new Channels(this);
     this.contacts = new Contacts(this);
     this.inboxes = new Inboxes(this);
+    this.groups = new Groups(this);
+    this.teams = new Teams(this);
 
     // Promises are default
     this.promises = true;
@@ -52,6 +56,8 @@ export class FrontAppClient {
   public channels: Channels;
   public contacts: Contacts;
   public inboxes: Inboxes;
+  public groups: Groups;
+  public teams: Teams;
 
   private _request: request.SuperAgentStatic;
 

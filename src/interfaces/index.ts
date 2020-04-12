@@ -21,3 +21,8 @@ export {
   MessagesParamsInterface,
 } from './message.interface';
 export { InboxInterface, InboxInterfaceCreate } from './inbox.interface';
+export { TeammateIdsInterface } from './team.interface';
+export {
+  ContactGroupsQueryInterface,
+  GroupAddContactInterface,
+} from './group.interface';

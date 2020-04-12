@@ -4,6 +4,8 @@ import { Contacts } from './contacts';
 import { Channels } from './channels';
 import { MessageInterface, FileInterface } from './interfaces/message.interface';
 import { Inboxes } from './inboxes';
+import { Groups } from './groups';
+import { Teams } from './teams';
 export interface FrontPagination {
     next: string;
 }
@@ -17,6 +19,8 @@ export declare class FrontAppClient {
     channels: Channels;
     contacts: Contacts;
     inboxes: Inboxes;
+    groups: Groups;
+    teams: Teams;
     private _request;
     promiseProxy(f: any, req: request.SuperAgentRequest): Promise<any>;
     put(endpoint: string, data: object, f: any): Promise<any>;
