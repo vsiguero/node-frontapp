@@ -1,47 +1,59 @@
-interface IRelatedContact {
+interface RelatedContactInterface {
     notes: string;
     conversations: string;
     owner: string;
 }
-interface ILinkContact {
+interface LinkContactInterface {
     self: string;
-    related: IRelatedContact;
+    related: RelatedContactInterface;
 }
-interface IHandle {
+export interface HandleInterface {
     handle: string;
     source: 'email' | 'phone' | 'twitter' | 'facebook' | 'intercom' | 'smooch' | 'custom';
 }
-interface IRelatedGroup {
+interface RelatedGroupInterface {
     contacts: string;
     owner: string;
 }
-interface ILinkGroup {
+interface LinkGroupInterface {
     self: string;
-    related: IRelatedGroup;
+    related: RelatedGroupInterface;
 }
-interface IGroup {
-    _links: ILinkGroup;
+export interface GroupInterface {
+    _links: LinkGroupInterface;
     id: string;
     name: string;
     is_private: boolean;
 }
-export interface IContact {
-    _links?: ILinkContact;
+export interface ContactInterface {
+    _links?: LinkContactInterface;
     name?: string;
     id?: string;
     description?: string;
-    handles: IHandle[];
-    groups: IGroup[];
+    handles: Array<HandleInterface>;
+    groups: Array<GroupInterface>;
     is_spammer: boolean;
-    links: string[];
+    links: Array<string>;
     updated_at: number;
     custom_fields: object;
     is_private: boolean;
 }
-export interface IContactCreate {
+export interface ContactCreateInterface {
     name?: string;
+    description?: string;
+    handles?: Array<HandleInterface>;
+    groups?: Array<GroupInterface>;
+    is_spammer?: boolean;
+    custom_fields?: object;
+    is_private?: boolean;
 }
-export interface IContactUpdate {
+export interface ContactUpdateInterface {
     name?: string;
+    description?: string;
+    handles?: Array<HandleInterface>;
+    groups?: Array<GroupInterface>;
+    is_spammer?: boolean;
+    custom_fields?: object;
+    is_private?: boolean;
 }
 export {};

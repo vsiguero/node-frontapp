@@ -1,4 +1,4 @@
-export { IChannel, IChannelCreate, IChannelUpdate } from './channel.interface';
-export { IContact, IContactCreate, IContactUpdate } from './contact.interface';
-export { IMessage } from './message.interface';
-export { IInbox } from './inbox.interface';
+export { ChannelInterface, ChannelCreateInterface, ChannelUpdateInterface, } from './channel.interface';
+export { ContactInterface, ContactCreateInterface, ContactUpdateInterface, GroupInterface, HandleInterface, } from './contact.interface';
+export { MessageInterface } from './message.interface';
+export { InboxInterface, InboxInterfaceCreate } from './inbox.interface';
