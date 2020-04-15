@@ -11,7 +11,6 @@ export {
   ContactUpdateInterface,
   ContactListParamsInterface,
   ContactSearchParamsInterface,
-  GroupInterface,
   HandleInterface,
   HandleDeleteInterface,
 } from './contact.interface';
@@ -21,8 +20,13 @@ export {
   MessagesParamsInterface,
 } from './message.interface';
 export { InboxInterface, InboxInterfaceCreate } from './inbox.interface';
-export { TeammateIdsInterface } from './team.interface';
 export {
+  TeamInterface,
+  TeamMateInterface,
+  TeammateIdsInterface,
+} from './team.interface';
+export {
+  GroupInterface,
   ContactGroupsQueryInterface,
   GroupAddContactInterface,
 } from './group.interface';

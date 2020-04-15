@@ -1,12 +1,13 @@
-import { FrontAppClient } from './client';
-import { ContactGroupsQueryInterface, GroupAddContactInterface } from './interfaces/group.interface';
+import { FrontAppClient, DefaultResponseInterface } from './client';
+import { ContactGroupsQueryInterface, GroupAddContactInterface, GroupInterface } from './interfaces/group.interface';
+import { ContactInterface } from './interfaces';
 export declare class Groups {
     constructor(client: FrontAppClient);
     client: FrontAppClient;
-    get(group_id: string, f?: any): Promise<any>;
-    list(f?: any): Promise<any>;
-    listContacts(group_id: string, query: ContactGroupsQueryInterface, f?: any): Promise<any>;
-    create(name: string, f?: any): Promise<any>;
-    addContact(group_id: string, params: GroupAddContactInterface, f?: any): Promise<any>;
-    delete(group_id: string, f?: any): Promise<any>;
+    get(group_id: string, f?: any): Promise<GroupInterface>;
+    list(f?: any): Promise<ReadonlyArray<GroupInterface>>;
+    listContacts(group_id: string, query: ContactGroupsQueryInterface, f?: any): Promise<ReadonlyArray<ContactInterface>>;
+    create(name: string, f?: any): Promise<GroupInterface>;
+    addContact(group_id: string, params: GroupAddContactInterface, f?: any): Promise<DefaultResponseInterface>;
+    delete(group_id: string, f?: any): Promise<DefaultResponseInterface>;
 }

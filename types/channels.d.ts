@@ -6,11 +6,11 @@ export declare class Channels {
     constructor(client: FrontAppClient);
     client: FrontAppClient;
     list(f?: any): Promise<ReadonlyArray<ChannelInterface>>;
-    listTeam(id: string, f?: any): Promise<ReadonlyArray<ChannelInterface>>;
-    listTeammate(id: string, f?: any): Promise<ReadonlyArray<ChannelInterface>>;
-    getChannel(id: string, f?: any): Promise<ChannelInterface>;
-    createChannel(inboxId: string, params: ChannelCreateInterface, f?: any): Promise<ReadonlyArray<ChannelInterface>>;
-    updateChannel(channelId: string, params: ChannelUpdateInterface, f?: any): Promise<ReadonlyArray<ChannelInterface>>;
-    createChannelMessage(channel_id: string, params: ChannelMessageParamsInterface, f?: any): Promise<any>;
-    createChannelCustomMessage(channel_id: string, params: MessageInterface, file: FileInterface, f?: any): Promise<any>;
+    listByTeam(id: string, f?: any): Promise<ReadonlyArray<ChannelInterface>>;
+    listByTeammate(id: string, f?: any): Promise<ReadonlyArray<ChannelInterface>>;
+    get(id: string, f?: any): Promise<ChannelInterface>;
+    create(inboxId: string, params: ChannelCreateInterface, f?: any): Promise<ChannelInterface>;
+    update(channelId: string, params: ChannelUpdateInterface, f?: any): Promise<ChannelInterface>;
+    createMessage(channel_id: string, params: ChannelMessageParamsInterface, f?: any): Promise<any>;
+    createCustomMessage(channel_id: string, params: MessageInterface, file: FileInterface, f?: any): Promise<any>;
 }

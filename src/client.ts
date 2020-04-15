@@ -10,9 +10,33 @@ import { FrontAppError, FrontErrorInterface } from './error';
 import { Inboxes } from './inboxes';
 import { Groups } from './groups';
 import { Teams } from './teams';
+import {
+  HandleInterface,
+  GroupAddContactInterface,
+  TeammateIdsInterface,
+} from './interfaces';
 
 export interface FrontPagination {
   next: string;
+}
+
+export interface DataInterface {
+  id?: string;
+  deleted?: boolean;
+  updated?: boolean;
+  created?: boolean;
+  added?: boolean;
+  removed?: boolean;
+  object?: string;
+  params?:
+    | string
+    | HandleInterface
+    | GroupAddContactInterface
+    | TeammateIdsInterface;
+}
+
+export interface DefaultResponseInterface extends FrontErrorInterface {
+  data?: DataInterface;
 }
 
 export class FrontAppClient {
@@ -71,8 +95,8 @@ export class FrontAppClient {
         if (hasErrors) {
           throw new FrontAppError(
             frontError.message,
-            frontError.title,
-            frontError.details,
+            frontError.title || '',
+            frontError.details || [],
             frontError.status,
           );
         }
@@ -88,9 +112,9 @@ export class FrontAppClient {
           const frontError: FrontErrorInterface = res.body._error;
           f(
             new FrontAppError(
-              frontError.message || frontError.title,
-              frontError.title,
-              frontError.details,
+              frontError.message,
+              frontError.title || '',
+              frontError.details || [],
               frontError.status,
             ),
             null,
@@ -171,8 +195,8 @@ export class FrontAppClient {
         f(
           new FrontAppError(
             frontError.message,
-            frontError.title,
-            frontError.details,
+            frontError.title || '',
+            frontError.details || [],
             frontError.status,
           ),
           null,
@@ -183,5 +207,17 @@ export class FrontAppClient {
     } else {
       f(res);
     }
+  }
+
+  defaultResponse(
+    data: DataInterface,
+    status: number = 200,
+    message: string = 'Success',
+  ): DefaultResponseInterface {
+    return {
+      status: status,
+      message: message,
+      data: data,
+    };
   }
 }

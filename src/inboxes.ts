@@ -10,28 +10,26 @@ export class Inboxes {
   }
   client: FrontAppClient;
 
-  async listInboxes(f?: any): Promise<ReadonlyArray<InboxInterface>> {
+  async list(f?: any): Promise<ReadonlyArray<InboxInterface>> {
     return this.client.get(`/inboxes`, {}, f);
   }
 
-  async listInboxChannels(
+  async listChannels(
     inboxId: string,
     f?: any,
   ): Promise<ReadonlyArray<InboxInterface>> {
     return this.client.get(`/inboxes/${inboxId}/channels`, {}, f);
   }
 
-  async getInbox(
-    inboxId: string,
-    f?: any,
-  ): Promise<ReadonlyArray<InboxInterface>> {
+  async get(inboxId: string, f?: any): Promise<ReadonlyArray<InboxInterface>> {
     return this.client.get(`/inboxes/${inboxId}`, {}, f);
   }
 
-  async createInbox(
+  async create(
     params: InboxInterfaceCreate,
     f?: any,
   ): Promise<ReadonlyArray<InboxInterface>> {
-    return this.client.get(`/inboxes`, params, f);
+    const newInbox = await this.client.post(`/inboxes`, params, f);
+    return this.get(newInbox.id);
   }
 }

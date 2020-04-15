@@ -19,41 +19,47 @@ export class Channels {
     return this.client.get(`/channels`, {}, f);
   }
 
-  async listTeam(
+  async listByTeam(
     id: string,
     f?: any,
   ): Promise<ReadonlyArray<ChannelInterface>> {
     return this.client.get(`/teams/${id}/channels`, {}, f);
   }
 
-  async listTeammate(
+  async listByTeammate(
     id: string,
     f?: any,
   ): Promise<ReadonlyArray<ChannelInterface>> {
     return this.client.get(`/teammates/${id}/channels`, {}, f);
   }
 
-  async getChannel(id: string, f?: any): Promise<ChannelInterface> {
+  async get(id: string, f?: any): Promise<ChannelInterface> {
     return this.client.get(`/channels/${id}`, {}, f);
   }
 
-  async createChannel(
+  async create(
     inboxId: string,
     params: ChannelCreateInterface,
     f?: any,
-  ): Promise<ReadonlyArray<ChannelInterface>> {
-    return this.client.get(`/${inboxId}/channels`, params, f);
+  ): Promise<ChannelInterface> {
+    const newChannel = await this.client.post(
+      `/${inboxId}/channels`,
+      params,
+      f,
+    );
+    return this.get(newChannel.id);
   }
 
-  async updateChannel(
+  async update(
     channelId: string,
     params: ChannelUpdateInterface,
     f?: any,
-  ): Promise<ReadonlyArray<ChannelInterface>> {
-    return this.client.get(`/channels/${channelId}`, params, f);
+  ): Promise<ChannelInterface> {
+    await this.client.put(`/channels/${channelId}`, params, f);
+    return this.get(channelId);
   }
 
-  async createChannelMessage(
+  async createMessage(
     channel_id: string,
     params: ChannelMessageParamsInterface,
     f?: any,
@@ -61,7 +67,7 @@ export class Channels {
     return this.client.get(`/channels/${channel_id}/messages`, params, f);
   }
 
-  async createChannelCustomMessage(
+  async createCustomMessage(
     channel_id: string,
     params: MessageInterface,
     file: FileInterface,

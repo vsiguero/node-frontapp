@@ -11,7 +11,7 @@ export interface LinkInboxInterface {
 }
 
 export interface InboxInterface {
-  _link: LinkInboxInterface;
+  _links: LinkInboxInterface;
   id: string;
   name: string;
   is_private: boolean;

@@ -1,5 +1,8 @@
 import { FrontAppClient } from './client';
-import { MessagesParamsInterface } from './interfaces/message.interface';
+import {
+  MessagesParamsInterface,
+  MessageInterface,
+} from './interfaces/message.interface';
 
 export class Messages {
   constructor(client: FrontAppClient) {
@@ -7,19 +10,23 @@ export class Messages {
   }
   client: FrontAppClient;
 
-  async getMessage(message_id: string, f?: any): Promise<any> {
+  async get(message_id: string, f?: any): Promise<MessageInterface> {
     return this.client.get(`/messages/${message_id}`, {}, f);
   }
+
+  // Create message and Create custom message is on channels
 
   async replyConversation(
     conversation_id: string,
     params: MessagesParamsInterface,
     f?: any,
-  ): Promise<any> {
+  ): Promise<MessageInterface> {
     return this.client.get(
       `/conversations/${conversation_id}/messages`,
       params,
       f,
     );
   }
+
+  // TODO: Import messages
 }

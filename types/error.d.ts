@@ -1,7 +1,7 @@
 export interface FrontErrorInterface {
     message: string;
-    title: string;
-    details: ReadonlyArray<string>;
+    title?: string;
+    details?: ReadonlyArray<string>;
     status: number;
 }
 export declare class FrontAppError extends Error {

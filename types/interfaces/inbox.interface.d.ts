@@ -9,7 +9,7 @@ export interface LinkInboxInterface {
     related: RelatedInboxInterface;
 }
 export interface InboxInterface {
-    _link: LinkInboxInterface;
+    _links: LinkInboxInterface;
     id: string;
     name: string;
     is_private: boolean;
