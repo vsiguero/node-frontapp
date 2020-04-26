@@ -5,14 +5,14 @@ import nock from 'nock';
 
 describe('clients', () => {
   it('should resolve promises', async () => {
-    nock('https://api2.frontapp.com').get('/contacts').reply(200, {});
+    nock('https://api2.frontapp.com').get('/contacts/').reply(200, {});
     const client = new FrontAppClient('token');
     await expect(client.contacts.list({})).resolves.toEqual({});
   });
 
   it('should reject promises resolved with error objects', () => {
     nock('https://api2.frontapp.com')
-      .get('/contacts')
+      .get('/contacts/')
       .reply(200, {
         _error: {
           message: 'Front Error',
@@ -30,7 +30,7 @@ describe('clients', () => {
 
   it('should reject promises with error objects', async () => {
     nock('https://api2.frontapp.com')
-      .get('/contacts')
+      .get('/contacts/')
       .reply(400, {
         _error: {
           message: 'Front Error',
@@ -63,22 +63,23 @@ describe('clients', () => {
   });
 
   it('should not crash if the callback is missing', () => {
-    nock('https://api2.frontapp.com').get('/contacts').reply(200, {});
+    nock('https://api2.frontapp.com').get('/contacts/').reply(200, {});
     const client = new FrontAppClient('token').useCallbacks();
     expect(() => {
       client.contacts.list({});
     }).not.toThrow();
   });
 
-  it('should construct with one fields', () => {
+  it('should construct with one field', () => {
     const client = new FrontAppClient('token');
     expect(client.token).toBe('token');
   });
 
   it('should throw if no credentials found', () => {
     expect(() => {
+      const undefinedToken = '';
       // tslint:disable-next-line: no-unused-expression
-      new FrontAppClient('');
+      new FrontAppClient(undefinedToken);
     }).toThrowError('Could not construct a client with those parameters');
   });
 });

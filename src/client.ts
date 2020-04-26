@@ -44,7 +44,12 @@ export class FrontAppClient {
     this.token = token;
 
     if (!this.token || this.token === undefined) {
-      throw new Error('Could not construct a client with those parameters');
+      throw new FrontAppError(
+        'Could not construct a client with those parameters',
+        '',
+        [],
+        500,
+      );
     }
 
     this.API_URL = apiUrl || 'https://api2.frontapp.com';
