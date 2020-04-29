@@ -36,7 +36,7 @@ export declare class FrontAppClient {
     inboxes: Inboxes;
     groups: Groups;
     teams: Teams;
-    private _request;
+    _request: request.SuperAgentStatic;
     promiseProxy(f: any, req: request.SuperAgentRequest): Promise<any>;
     put(endpoint: string, data: object, f: any): Promise<any>;
     post(endpoint: string, data: object, f: any): Promise<any>;

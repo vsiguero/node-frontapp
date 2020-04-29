@@ -88,7 +88,7 @@ export class FrontAppClient {
   public groups: Groups;
   public teams: Teams;
 
-  private _request: request.SuperAgentStatic;
+  _request: request.SuperAgentStatic;
 
   async promiseProxy(f: any, req: request.SuperAgentRequest): Promise<any> {
     if (this.promises || !f) {
