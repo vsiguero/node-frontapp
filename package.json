@@ -1,6 +1,6 @@
 {
   "name": "node-frontapp",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Node FrontApp API Wrapper in Typescript",
   "homepage": "https://github.com/vsiguero/node-frontapp",
   "bugs:": "https://github.com/vsiguero/node-frontapp/issues",
