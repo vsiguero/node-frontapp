@@ -134,7 +134,7 @@ export class FrontAppClient {
   async put(endpoint: string, data: object, f: any): Promise<any> {
     return this.promiseProxy(
       f,
-      this._request.put(`${this.API_URL}${endpoint}`).send(data),
+      this._request.patch(`${this.API_URL}${endpoint}`).send(data),
     );
   }
 
